@@ -1,0 +1,20 @@
+service: sls
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${opt:region, 'eu-west-1'}
+  stage: dev
+
+functions:
+  hello:
+    handler: handler.hello
+
+  add:
+    handler: add.add
+    events:
+      - http:
+          path: math/add
+          method: post
+          cors: true
